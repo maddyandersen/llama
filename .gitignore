@@ -1,0 +1,6 @@
+key_api0.txt
+app/venv
+app/__pycache__
+__pycache__
+.DS_Store
+.vscode/
