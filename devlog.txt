@@ -17,3 +17,7 @@ maddyA, ameliaC, ariS, liamK -- 2021-05-25 22:05
 - finished first version of design doc
 - focused especially on task breakdown, as well as our site map
 - might experiment with node or react (depending on our timeline)
+
+
+maddyA, ameliaC, ariS, liamK -- 2021-05-26 10:06
+- updated our README.md! Added project description, launch codes, and a link to the Twitter API card.
