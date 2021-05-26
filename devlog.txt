@@ -1,0 +1,19 @@
+DEVLOG (Team llama)
+
+Instructions:
+Devlog allows any group member at any time to see the current state of the project.
+PM will make sure devlog is being maintained, but will not make all entries.
+The devlog should be a plain text file, stored in the specified location.
+When any team member stops working and pushes changes to github, they should update the devlog explaining what changes have been made. Include errors/bugs discovered (or created).
+Separate devlog entries with a newline.
+Most recent entry at the bottom.
+Each entry should begin with the following format: firstL -- TIMESTAMP\n ( e.g.: topherM -- 1999-12-31 23:59 )
+
+maddyA -- 2021-05-23 10:00
+- created pull request to add llama submodule to repo of holding
+- created .gitignore and devlog files
+
+maddyA, ameliaC, ariS, liamK -- 2021-05-25 22:05
+- finished first version of design doc
+- focused especially on task breakdown, as well as our site map
+- might experiment with node or react (depending on our timeline)
