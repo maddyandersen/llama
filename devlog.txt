@@ -21,3 +21,9 @@ maddyA, ameliaC, ariS, liamK -- 2021-05-25 22:05
 
 maddyA, ameliaC, ariS, liamK -- 2021-05-26 10:06
 - updated our README.md! Added project description, launch codes, and a link to the Twitter API card.
+
+maddyA, ameliaC, ariS, liamK -- 2021-05-26 09:54
+- added a timeline to our design doc
+- Liam worked on our NLTK algoritm
+- Ari began exploring react.js, which we are using for our front-end
+- Maddy & Amelia set up the database and began working on login/logout/error/register
