@@ -6,7 +6,7 @@
     --bg-primary: #ececec;
     --bg-secondary: whitesmoke;
     --darker-lsb: #79b9e1;
-    --lighter-lsb: #cfebfd;
+    --lighter-lsb: #e7f5fe;
     --transition-speed: 300ms;
 }
 
@@ -175,6 +175,7 @@ main {
 
 #first-sign-up:hover {
     background-color: var(--darker-lsb);
+    cursor: pointer;
 }
 
 #first-log-in {
@@ -184,6 +185,7 @@ main {
 
 #first-log-in:hover {
     background-color: var(--lighter-lsb);
+    cursor: pointer;
 }
 
 .first-title {
