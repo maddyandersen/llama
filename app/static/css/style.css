@@ -213,3 +213,41 @@ main {
     column-gap: 0;
 }
 
+.form-input {
+    height: 3rem;
+    font-size: 16px;
+    border: 1px solid lightgray;
+    border-radius: 0.4vw;
+    padding-left: 1vw;
+    width: calc(100% - 1vw);
+}
+
+.form-button {
+    font-weight: bold;
+    font-size: 16px;
+    width: 100%;
+    padding: 3vh 3vw;
+    margin: 0;
+    border: none;
+    border-radius: 6vw;
+    background-color: lightskyblue;
+    transition: ease 200ms;
+}
+
+.form-button:hover {
+    background-color: var(--darker-lsb);
+    cursor: pointer;
+}
+
+.form-wrap {
+    display: flex;
+    margin-top: 5vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-alt, .form-alt-link {
+    color: gray;
+    filter: opacity(0.9);
+}
+
