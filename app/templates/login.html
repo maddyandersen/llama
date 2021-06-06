@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
 <body>
+    {% if message is defined %}
+    <div class="login_error">
+      <h5> {{ message }} </h5>
+    </div>
+    {% endif %}
+
     <div class="form-wrap">
         <form action="/loginRequest" method="POST">
             <h1>Log in to Twitter Madlibs</h1>
