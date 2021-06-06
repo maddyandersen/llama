@@ -37,4 +37,4 @@ maddyA, ameliaC -- 2021-06-06 15:43
 - added try and excepts to several functions to prevent failure and to accommodate the fail safe error.html
 - renamed loginerror.html to error.html (this is a fail safe if anything goes wrong)
 - added error messages to login.html and signup.html
-
+- deleted db_manager.py
