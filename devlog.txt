@@ -27,3 +27,14 @@ maddyA, ameliaC, ariS, liamK -- 2021-05-26 09:54
 - Liam worked on our NLTK algoritm
 - Ari began exploring react.js, which we are using for our front-end
 - Maddy & Amelia set up the database and began working on login/logout/error/register
+
+maddyA, ameliaC -- 2021-06-06 15:43
+- tested Ari's login and signup functions
+- found that we were able to login with an incorrect password, as long as the username existed --> no error messages 
+- updated Ari's login and signup functions in __init__.py to fix this problem and include error messages
+- combined __init__.py and db_manager.py into one file
+- we were having an issue with the autoincrement for the user_ids, so we changed them to be random ints from 0 to 10 million (* come back to later)
+- added try and excepts to several functions to prevent failure and to accommodate the fail safe error.html
+- renamed loginerror.html to error.html (this is a fail safe if anything goes wrong)
+- added error messages to login.html and signup.html
+
