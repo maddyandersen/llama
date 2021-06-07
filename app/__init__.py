@@ -73,7 +73,18 @@ all content contained on main user page within this function
 @app.route("/home")
 def home():
     try:
-        # db stuff to get all users' tweets
+        ''' can't test now, will uncomment when we have tweets to test on
+        db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
+        c = db.cursor()
+        c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
+        # make a list of all the tweet_ids, user_ids, and tweet content
+        c.execute("SELECT * FROM tweets")
+        tweets = list(c)
+
+        for row in tweets:
+            name = c.execute("SELECT username FROM users WHERE user_id=?", (tweets[row][1],))
+            return render_template("home.html", username = name, content = tweets[row][2])
+        '''
         print(session['user_id'])
         return render_template("home.html")
     except:
