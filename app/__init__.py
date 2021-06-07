@@ -74,6 +74,7 @@ all content contained on main user page within this function
 def home():
     try:
         # db stuff to get all users' tweets
+        print(session['user_id'])
         return render_template("home.html")
     except:
         return random_error()
@@ -134,7 +135,6 @@ register function, registers new users
 '''
 @app.route("/signupRequest", methods=["POST"])
 def signupRequest():
-    try:
         username = request.form["username"]
         password = request.form["password"]
 
@@ -152,28 +152,16 @@ def signupRequest():
             return auth_error(is_user_conflict=True)
         else:
             c.execute("INSERT INTO users (user_id, username, password) VALUES (NULL, ?, ?)", (username, password))
-            print("hello 1")
             db.commit()
+
+            # make a list of the password and user_id where the username matches given
+            c.execute("SELECT password, user_id FROM users WHERE username=?", (username,))
+            accounts = list(c) #returns tuple
+            # add user and user_id to session for auth purposes
             session['username'] = username
-            print("hello 2")
-            #user_id = getUserId(username)
-            print("hello 3")
-            #session['user_id'] = user_id
-            print("hello 4")
+            session['user_id'] = accounts[0][1]
             return home()
-            print("hello 6")
-    except:
-        return random_error()
 
-def getUserId(username):
-    db = sqlite3.connect(dir + DB_FILE) # dir + "blog.db") # connects to sqlite table
-    c = db.cursor()
-
-    command = 'SELECT user_id FROM users WHERE username = ' + username
-    id = 0
-    for row in c.execute(command):
-        id = row[0]
-    return id
 
 if __name__ == '__main__':
     app.debug = True
