@@ -38,3 +38,9 @@ maddyA, ameliaC -- 2021-06-06 15:43
 - renamed loginerror.html to error.html (this is a fail safe if anything goes wrong)
 - added error messages to login.html and signup.html
 - deleted db_manager.py
+
+maddyA, ariS, liamK -- 2021-05-26 23:57
+- continued working on the login/logout functions
+- tried to address the user_id issue, but we were unable to make much progress
+- currently, the user_id autoincrements, but we are unable to save it to the session 
+
