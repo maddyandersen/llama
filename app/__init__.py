@@ -50,7 +50,7 @@ logout function
 def logout():
     try:
         session.pop('username')
-        session.pop('user_id')
+        #session.pop('user_id')
         return redirect("/")
     except:
         return render_template("error.html")
@@ -142,7 +142,7 @@ def signupRequest():
         c = db.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS users(user_id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL);")
         # c.execute("CREATE TABLE IF NOT EXISTS users(user_id INTEGER PRIMARY KEY, username TEXT, password TEXT)")
-        c.execute("SELECT username FROM users")
+        c.execute("SELECT username FROM users;")
 
         pre_existing_usernames = convert(list(c))
 
@@ -151,15 +151,29 @@ def signupRequest():
             # return error saying "Username Already Exists."
             return auth_error(is_user_conflict=True)
         else:
-            user_id = str(random.randint(0, 10000000))
-            c.execute("INSERT INTO users (user_id, username, password) VALUES (?, ?, ?)", (str(user_id), username, password,))
-            session['username'] = username
-            session['user_id'] = user_id
+            c.execute("INSERT INTO users (user_id, username, password) VALUES (NULL, ?, ?)", (username, password))
+            print("hello 1")
             db.commit()
+            session['username'] = username
+            print("hello 2")
+            #user_id = getUserId(username)
+            print("hello 3")
+            #session['user_id'] = user_id
+            print("hello 4")
             return home()
-        # return index()
+            print("hello 6")
     except:
         return random_error()
+
+def getUserId(username):
+    db = sqlite3.connect(dir + DB_FILE) # dir + "blog.db") # connects to sqlite table
+    c = db.cursor()
+
+    command = 'SELECT user_id FROM users WHERE username = ' + username
+    id = 0
+    for row in c.execute(command):
+        id = row[0]
+    return id
 
 if __name__ == '__main__':
     app.debug = True
