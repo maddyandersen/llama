@@ -13,7 +13,7 @@
 * Users can also view tweets made by other users.
 
 ### APIs Used:
-[Twitter API](https://github.com/stuy-softdev/notes-and-code20-21/blob/692860fcf951ee04a800ff39dd88b1b7b254ca74/api_kb/411_on_AdviceSlip.md)  
+[Twitter API](https://github.com/stuy-softdev/notes-and-code20-21/blob/692860fcf951ee04a800ff39dd88b1b7b254ca74/api_kb/411_on_Twitter.md)  
  
 ### Launch Codes:
 * Clone this repository:
