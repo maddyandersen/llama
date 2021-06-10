@@ -47,3 +47,10 @@ maddyA, ariS, liamK -- 2021-06-06 23:57
 ameliaC -- 2021-06-07 10:05
 - added code to home function to send tweets and info to feed
 - but commented it out since I didn't get to test it yet
+
+ameliaC -- 2021-06-10 18:40
+- added new function and route for the myTweets/profile page
+- wrote code to send logged in user's tweets to their my tweets/profile page
+- fixed previously written code to send tweets to feed
+- debugged with Maddy's help
+- updated the path in layout.html so the buttons would go to the right pages
