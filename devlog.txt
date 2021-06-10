@@ -39,8 +39,11 @@ maddyA, ameliaC -- 2021-06-06 15:43
 - added error messages to login.html and signup.html
 - deleted db_manager.py
 
-maddyA, ariS, liamK -- 2021-05-26 23:57
+maddyA, ariS, liamK -- 2021-06-06 23:57
 - continued working on the login/logout functions
 - tried to address the user_id issue, but we were unable to make much progress
 - currently, the user_id autoincrements, but we are unable to save it to the session 
 
+ameliaC -- 2021-06-07 10:05
+- added code to home function to send tweets and info to feed
+- but commented it out since I didn't get to test it yet
