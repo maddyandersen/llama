@@ -76,6 +76,9 @@ def home():
         db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
         c = db.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
+        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
+        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
+
         # make a list of all the tweet_ids, user_ids, and tweet content
         c.execute("SELECT * FROM tweets")
         tweets = list(c)
@@ -100,6 +103,10 @@ def myTweets():
         db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
         c = db.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
+
+        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
+        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
+
         # make a list of all the tweet content for this user
         c.execute("SELECT content FROM tweets WHERE user_id=?", (session.get("user_id"),))
         tweets = list(c)
@@ -111,7 +118,7 @@ def myTweets():
         for row in tweets:
             myTweets.append(row[0])
 
-        return render_template("home.html", username = name[0][0], tweets = myTweets)
+        return render_template("profile.html", username = name[0][0], tweets = myTweets)
     except:
         return random_error()
 
