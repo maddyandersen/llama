@@ -73,7 +73,6 @@ all content contained on main user page within this function
 @app.route("/home")
 def home():
     try:
-        ''' can't test now, will uncomment when we have tweets to test on
         db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
         c = db.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
@@ -81,12 +80,38 @@ def home():
         c.execute("SELECT * FROM tweets")
         tweets = list(c)
 
+        allTweets = []
+
         for row in tweets:
-            name = c.execute("SELECT username FROM users WHERE user_id=?", (tweets[row][1],))
-            return render_template("home.html", username = name, content = tweets[row][2])
-        '''
-        print(session['user_id'])
-        return render_template("home.html")
+            c.execute("SELECT username FROM users WHERE user_id=?", (row[1],))
+            name = list(c)
+            allTweets.append((name[0][0], row[2]))
+
+        return render_template("home.html", tweets = allTweets)
+    except:
+        return random_error()
+
+'''
+all content contained on profile page within this function
+'''
+@app.route("/myTweets")
+def myTweets():
+    try:
+        db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
+        c = db.cursor()
+        c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
+        # make a list of all the tweet content for this user
+        c.execute("SELECT content FROM tweets WHERE user_id=?", (session.get("user_id"),))
+        tweets = list(c)
+        c.execute("SELECT username FROM users WHERE user_id=?", (session.get("user_id"),))
+        name = list(c)
+
+        myTweets = []
+
+        for row in tweets:
+            myTweets.append(row[0])
+
+        return render_template("home.html", username = name[0][0], tweets = myTweets)
     except:
         return random_error()
 
