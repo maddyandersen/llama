@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Twitter Madlibs: Create Tweet</title>
     <link rel="stylesheet" href="../static/css/style.css">
 
 </head>
@@ -34,64 +35,67 @@
     </nav>
 
     <main>
+        <div class="form-wrap">
         <form action="/tweetRequest" method="POST">
             {% if type == 'CD' %}
-                <label>Enter a number:</label>
+                <h2>Enter a number:</h2>
             {% elif type == 'JJ' %}
-                <label>Enter an adjective:</label>
+                <h2>Enter an adjective:</h2>
             {% elif type == 'JJR' %}
-                <label>Enter a comparative adjective (e.g. funnier, cooler):</label>
+                <h2>Enter a comparative adjective (e.g. funnier, cooler):</h2>
             {% elif type == 'JJS' %}
-                <label>Enter a superlative adjective (e.g. calmest, corniest):</label>
+                <h2>Enter a superlative adjective (e.g. calmest, corniest):</h2>
             {% elif type == 'MD' %}
-                <label>Enter a modal auxiliary (e.g. can, cannot, could, might):</label>
+                <h2>Enter a modal auxiliary (e.g. can, cannot, could, might):</h2>
             {% elif type == 'NN' %}
-                <label>Enter a noun (singular form):</label>
+                <h2>Enter a noun (singular form):</h2>
             {% elif type == 'N' %}
-                <label>Enter a noun (singular form):</label>
+                <h2>Enter a noun (singular form):</h2>
             {% elif type == 'NNP' %}
-                <label>Enter a proper noun (singular form):</label>
+                <h2>Enter a proper noun (singular form):</h2>
             {% elif type == 'NNS' %}
-                <label>Enter a noun (plural form):</label>
+                <h2>Enter a noun (plural form):</h2>
             {% elif type == 'PRP' %}
-                <label>Enter a personal pronoun (e.g. hers, herself, him, ourselves):</label>
+                <h2>Enter a personal pronoun (e.g. hers, herself, him, ourselves):</h2>
             {% elif type == 'PRP$' %}
-                <label>Enter a possessive pronoun (e.g. her, his, mine, ours):</label>
+                <h2>Enter a possessive pronoun (e.g. her, his, mine, ours):</h2>
             {% elif type == 'RB' %}
-                <label>Enter an adverb:</label>
+                <h2>Enter an adverb:</h2>
             {% elif type == 'RBR' %}
-                <label>Enter a superlative adverb (e.g. best, biggest, earliest):</label>
+                <h2>Enter a superlative adverb (e.g. best, biggest, earliest):</h2>
             {% elif type == 'UH' %}
-                <label>Enter an interjection (e.g. Goodbye, huh, Wow):</label>
+                <h2>Enter an interjection (e.g. Goodbye, huh, Wow):</h2>
             {% elif type == 'VB' %}
-                <label>Enter a verb:</label>
+                <h2>Enter a verb:</h2>
             {% elif type == 'VBD' %}
-                <label>Enter a verb (past tense):</label>
+                <h2>Enter a verb (past tense):</h2>
             {% elif type == 'VBG' %}
-                <label>Enter a verb (gerund form like 'crossing', 'running', or 'jogging'):</label>
+                <h2>Enter a verb (gerund form like 'crossing', 'running', or 'jogging'):</h2>
             {% elif type == 'VBN' %}
-                <label>Enter a verb (past participle like 'ran', 'finished' or 'completed'):</label>
+                <h2>Enter a verb (past participle like 'ran', 'finished' or 'completed'):</h2>
             {% elif type == 'VBP' %}
-                <label>Enter a present tense verb not in 3rd person (e.g. twist, spill, tend, mold):</label>
+                <h2>Enter a present tense verb not in 3rd person (e.g. twist, spill, tend, mold):</h2>
             {% elif type == 'VBZ' %}
-                <label>Enter a present tense verb in 3rd person (e.g. marks, stretches, uses, fizzes):</label>
+                <h2>Enter a present tense verb in 3rd person (e.g. marks, stretches, uses, fizzes):</h2>
             {% else %}
-                <label>{{ type }}</label>
+                <h2>{{ type }}</h2>
             {% endif %}
-            <input type="text" name="word" />
+            <input type="text" name="word" class="form-input"/>
             <input type="hidden" name="text" value="{{ text }}" />
             <input type="hidden" name="index" value="{{ index }}" />
             <input type="hidden" name="count" value="{{ count }}" />
+            <br><br>
             {% if count > 0 %}
-            <button type="submit">
+            <button type="submit" class="form-button">
                 Next
             </button>
             {% else %}
-            <button type="submit">
+            <button type="submit" class="form-button">
                 Finish
             </button>
             {% endif %}
         </form>
+      </div>
     </main>
 </body>
 </html>
