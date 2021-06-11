@@ -60,6 +60,7 @@ def logout():
     except:
         return render_template("error.html")
 
+
 '''
 function that specifically handles case that either user has attempted login with
 invalid credentials or that new user tried to register with username that was already taken.
@@ -80,9 +81,9 @@ def home():
     try:
         db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
         c = db.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
-        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
-        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
+        c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL, link TEXT NOT NULL);")
+        #c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
+        #.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
 
         # make a list of all the tweet_ids, user_ids, and tweet content
         c.execute("SELECT * FROM tweets")
@@ -93,11 +94,12 @@ def home():
         for row in tweets:
             c.execute("SELECT username FROM users WHERE user_id=?", (row[1],))
             name = list(c)
-            allTweets.append((name[0][0], row[2]))
+            allTweets.append((name[0][0], row[2], row[3]))
 
         return render_template("home.html", tweets = allTweets)
     except:
         return random_error()
+
 
 '''
 all content contained on profile page within this function
@@ -107,13 +109,13 @@ def myTweets():
     try:
         db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
         c = db.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
+        c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL, link TEXT NOT NULL);")
 
-        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
-        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
+        #c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
+        #c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
 
         # make a list of all the tweet content for this user
-        c.execute("SELECT content FROM tweets WHERE user_id=?", (session.get("user_id"),))
+        c.execute("SELECT content, link FROM tweets WHERE user_id=?", (session.get("user_id"),))
         tweets = list(c)
         c.execute("SELECT username FROM users WHERE user_id=?", (session.get("user_id"),))
         name = list(c)
@@ -121,7 +123,7 @@ def myTweets():
         myTweets = []
 
         for row in tweets:
-            myTweets.append(row[0])
+            myTweets.append((row[0], row[1]))
 
         return render_template("profile.html", username = name[0][0], tweets = myTweets)
     except:
@@ -210,6 +212,7 @@ def signupRequest():
             session['user_id'] = accounts[0][1]
             return home()
 
+
 @app.route("/tweet")
 def createTweet():
     randWord = random.choice(SPACHE_WORDS)
@@ -237,13 +240,19 @@ def createTweet():
     parsed_text = parse_text(text)
     return tweetForm(parsed_text, int(0.30 * len(parsed_text)))
 
+<<<<<<< HEAD
+
+def tweetForm(text, change_len, link):
+=======
 def tweetForm(text, change_len):
+>>>>>>> 43a0dbfc04075f806d9b60ec0c30474f0911fe20
     chosen = random.choice(text)
     while chosen[1] != 'CD' and chosen[1] != 'JJ' and chosen[1] != 'N' and chosen[1] != 'JJR' and chosen[1] != 'JJS' and chosen[1] != 'MD' and chosen[1] != 'NN' and chosen[1] != 'NNP' and chosen[1] != 'NNS' and chosen[1] != 'PRP' and chosen[1] != 'PRP$' and chosen[1] != 'RB' and chosen[1] != 'RBR' and chosen[1] != 'UH' and chosen[1] != 'VB' and chosen[1] != 'VBD' and chosen[1] != 'VBG' and chosen[1] != 'VBN' and chosen[1] != 'VBP' and chosen[1] != 'VBZ':
         chosen = random.choice(text)
     location = text.index(chosen)
     typeChange = chosen[1]
     return render_template("create_tweet.html", text=text, index=location, type=typeChange, count=change_len)
+
 
 @app.route("/tweetRequest", methods=["POST"])
 def changeTweet():
@@ -289,7 +298,7 @@ def changeTweet():
     finalTweet = " ".join(output_text)
     print(finalTweet)
     print(session.get("user_id"))
-    c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (session.get("user_id"), finalTweet))
+    c.execute("INSERT INTO tweets(tweet_id, user_id, content, link) VALUES (NULL, ?, ?, ?)", (session.get("user_id"), finalTweet, link))
     db.commit()
     c.execute("SELECT * FROM tweets")
     accounts = list(c)
