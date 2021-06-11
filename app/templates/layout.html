@@ -41,9 +41,16 @@
     </nav>
 
     <main>
+
       {% for tweet in tweets %}
-        {{ tweet[0] }}
-        {{ tweet[1] }}
+      <div class="tweets">
+        <div class="body">
+        <img src="../static/logo.png">
+        <span class="title">{{ tweet[0] }}</span>
+        <span class="user"> @{{ tweet[0] }}</span>
+        <div class="message">{{ tweet[1] }}</div>
+      </div>
+      </div>
         <br>
       {% endfor %}
     </main>

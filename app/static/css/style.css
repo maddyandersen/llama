@@ -118,7 +118,8 @@ img {
     margin-right: -50%;
     margin-top: 2em;
     position: relative;
-    bottom: 3vh
+    bottom: 3vh;
+    z-index: 900;
 }
 
 .tweets .body {
@@ -187,6 +188,7 @@ img {
         width: 5rem;
         height: 100vh;
         top: 0;
+        z-index: 1000;
     }
     .navbar:hover {
         width: 16rem;
