@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+<body>
+    <!-- navbar will show signup and login if user is not signed
+        in and my tweets, create tweet and log out if they are logged in -->
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="logo">
+                <a href="/" class="nav-link">
+                    <span class="link-text">Twitter Madlibs</span>
+                    <span class="logo-text">TM</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/myTweets" class="nav-link">
+                    <span class="link-text">my tweets</span>
+                    <span class="logo-text">mt</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="/logout" class="nav-link">
+                    <span class="link-text">log out</span>
+                    <span class="logo-text">lo</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <form action="/tweetRequest" method="POST">
+            {% if type == 'CD' %}
+                <label>Enter a number:</label>
+            {% elif type == 'JJ' %}
+                <label>Enter an adjective:</label>
+            {% elif type == 'JJR' %}
+                <label>Enter a comparative adjective (e.g. funnier, cooler):</label>
+            {% elif type == 'JJS' %}
+                <label>Enter a superlative adjective (e.g. calmest, corniest):</label>
+            {% elif type == 'MD' %}
+                <label>Enter a modal auxiliary (e.g. can, cannot, could, might):</label>
+            {% elif type == 'NN' %}
+                <label>Enter a noun (singular form):</label>
+            {% elif type == 'N' %}
+                <label>Enter a noun (singular form):</label>
+            {% elif type == 'NNP' %}
+                <label>Enter a proper noun (singular form):</label>
+            {% elif type == 'NNS' %}
+                <label>Enter a noun (plural form):</label>
+            {% elif type == 'PRP' %}
+                <label>Enter a personal pronoun (e.g. hers, herself, him, ourselves):</label>
+            {% elif type == 'PRP$' %}
+                <label>Enter a possessive pronoun (e.g. her, his, mine, ours):</label>
+            {% elif type == 'RB' %}
+                <label>Enter an adverb:</label>
+            {% elif type == 'RBR' %}
+                <label>Enter a superlative adverb (e.g. best, biggest, earliest):</label>
+            {% elif type == 'UH' %}
+                <label>Enter an interjection (e.g. Goodbye, huh, Wow):</label>
+            {% elif type == 'VB' %}
+                <label>Enter a verb:</label>
+            {% elif type == 'VBD' %}
+                <label>Enter a verb (past tense):</label>
+            {% elif type == 'VBG' %}
+                <label>Enter a verb (gerund form like 'crossing', 'running', or 'jogging'):</label>
+            {% elif type == 'VBN' %}
+                <label>Enter a verb (past participle like 'ran', 'finished' or 'completed'):</label>
+            {% elif type == 'VBP' %}
+                <label>Enter a present tense verb not in 3rd person (e.g. twist, spill, tend, mold):</label>
+            {% elif type == 'VBZ' %}
+                <label>Enter a present tense verb in 3rd person (e.g. marks, stretches, uses, fizzes):</label>
+            {% else %}
+                <label>{{ type }}</label>
+            {% endif %}
+            <input type="text" name="word" />
+            <input type="hidden" name="text" value="{{ text }}" />
+            <input type="hidden" name="index" value="{{ index }}" />
+            <input type="hidden" name="count" value="{{ count }}" />
+            {% if count > 0 %}
+            <button type="submit">
+                Next
+            </button>
+            {% else %}
+            <button type="submit">
+                Finish
+            </button>
+            {% endif %}
+        </form>
+    </main>
+</body>
+</html>

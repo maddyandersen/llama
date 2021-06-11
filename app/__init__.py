@@ -10,6 +10,8 @@ import os
 import random
 import urllib
 import json
+import requests
+import nltk
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -17,6 +19,9 @@ dir = os.path.dirname(__file__) or "."
 dir += "/"
 
 DB_FILE = "twittermad.db"
+
+BEARER_TOKEN = open("keys/key_twitter.txt", "r").read().split()[2]
+SPACHE_WORDS = open("keys/spache_words.txt", "r").read().split()
 
 '''
 def create_tables():
@@ -205,6 +210,82 @@ def signupRequest():
             session['user_id'] = accounts[0][1]
             return home()
 
+@app.route("/tweet")
+def createTweet():
+    randWord = random.choice(SPACHE_WORDS)
+    print(randWord)
+    all_headers =  {
+        "Authorization": "Bearer " + BEARER_TOKEN,
+        "User-Agent": "p5-llama"
+    }
+
+    request_params = {
+        'q': randWord,
+        'count': 100,
+        'lang': 'en',
+        'tweet_mode': 'extended'
+    }
+
+    resp = requests.get('https://api.twitter.com/1.1/search/tweets.json', params=request_params, headers=all_headers).json()
+
+    try:
+        text = resp["statuses"][0]["retweeted_status"]['full_text']
+    except:
+        text = resp["statuses"][0]['full_text']
+    text = text.lower()
+    parsed_text = parse_text(text)
+    return tweetForm(parsed_text, int(0.50 * len(parsed_text)))
+
+def tweetForm(text, change_len):
+    chosen = random.choice(text)
+    while chosen[1] != 'CD' and chosen[1] != 'JJ' and chosen[1] != 'N' and chosen[1] != 'JJR' and chosen[1] != 'JJS' and chosen[1] != 'MD' and chosen[1] != 'NN' and chosen[1] != 'NNP' and chosen[1] != 'NNS' and chosen[1] != 'PRP' and chosen[1] != 'PRP$' and chosen[1] != 'RB' and chosen[1] != 'RBR' and chosen[1] != 'UH' and chosen[1] != 'VB' and chosen[1] != 'VBD' and chosen[1] != 'VBG' and chosen[1] != 'VBN' and chosen[1] != 'VBP' and chosen[1] != 'VBZ':
+        chosen = random.choice(text)
+    location = text.index(chosen)
+    typeChange = chosen[1]
+    return render_template("create_tweet.html", text=text, index=location, type=typeChange, count=change_len)
+
+@app.route("/tweetRequest", methods=["POST"])
+def changeTweet():
+    text = request.form["text"]
+    print(text)
+    parse_text = []
+    elements = text[2:-3].split("), (")
+    print(elements)
+    for element in elements:
+        print(element)
+        tmp = element.split(", ")
+        new_tmp = []
+        for el in tmp:
+            new_tmp.append(el[1:-1])
+            print(el)
+        print(tmp)
+        if tmp[0] == ".',":
+            tuple = (".", "PDT")
+        else:
+            try:
+                tuple = (tmp[0][0:-1], tmp[1][1:])
+            except:
+                tuple = (tmp[0][0:-3], "")
+        parse_text.append(tuple)
+    text = parse_text
+    index = int(request.form["index"])
+    word = request.form["word"]
+    count = int(request.form["count"])
+    print(index)
+    print(count)
+    if count > 0:
+        text[index] = (word, text[index][1])
+        count -= 1
+        return tweetForm(text, count)
+    output_text = []
+    for tuple in text:
+        output_text.append(tuple[0])
+    return " ".join(output_text)
+
+def parse_text(text):
+   tokenized = nltk.word_tokenize(text)
+   parsed = nltk.pos_tag(tokenized)
+   return parsed
 
 if __name__ == '__main__':
     app.debug = True
