@@ -230,11 +230,12 @@ def createTweet():
 
     try:
         text = resp["statuses"][0]["retweeted_status"]['full_text']
+        print(text)
     except:
         text = resp["statuses"][0]['full_text']
     text = text.lower()
     parsed_text = parse_text(text)
-    return tweetForm(parsed_text, int(0.50 * len(parsed_text)))
+    return tweetForm(parsed_text, int(0.30 * len(parsed_text)))
 
 def tweetForm(text, change_len):
     chosen = random.choice(text)
@@ -256,17 +257,27 @@ def changeTweet():
         tmp = element.split(", ")
         new_tmp = []
         for el in tmp:
-            new_tmp.append(el[1:-1])
+            if el == "'":
+                new_tmp.append("'", 'POS')
+            elif el[0] != "'" and el[-1] != "'":
+                new_tmp.append(el)
+            elif el[0] != "'" and el[-1] == "'":
+                new_tmp.append(el[0:-1])
+            elif el[0] == "'" and el[-1] != "'":
+                new_tmp.append(el[1::])
+            else:
+                new_tmp.append(el[1:-1])
             print(el)
-        print(tmp)
-        if tmp[0] == ".',":
+        print(new_tmp)
+        if new_tmp[0] == ".',":
             tuple = (".", "PDT")
         else:
             try:
-                tuple = (tmp[0][0:-1], tmp[1][1:])
+                tuple = (new_tmp[0], new_tmp[1])
             except:
-                tuple = (tmp[0][0:-3], "")
+                tuple = (new_tmp[0][0:-3], "")
         parse_text.append(tuple)
+    print(parse_text)
     text = parse_text
     index = int(request.form["index"])
     word = request.form["word"]
@@ -274,13 +285,17 @@ def changeTweet():
     print(index)
     print(count)
     if count > 0:
+        print(text)
         text[index] = (word, text[index][1])
+        print(text)
         count -= 1
         return tweetForm(text, count)
     output_text = []
     for tuple in text:
         output_text.append(tuple[0])
-    return " ".join(output_text)
+    finalTweet = " ".join(output_text)
+    # final tweet
+    # return " ".join(output_text)
 
 def parse_text(text):
    tokenized = nltk.word_tokenize(text)
