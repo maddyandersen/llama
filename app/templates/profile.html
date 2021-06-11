@@ -34,16 +34,20 @@
     </nav>
 
     <main>
-        <div class="tweets">
+
           {% for tweet in tweets %}
-            <img src="../static/logo.png">
+
+          <div class="tweets">
             <div class="body">
-              <div class="title">{{ username }}</div>
+              <img src="../static/logo.png">
+              <span class="title">{{ username }}</span>
+              <span class="user"> @{{ username }}</span>
               <div class="message">{{ tweet }}</div>
+              <br>
             </div>
-            <br><br>
+            </div>
+            <br>
           {% endfor %}
-        </div>
     </main>
 </body>
 </html>

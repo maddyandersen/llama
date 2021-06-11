@@ -110,33 +110,45 @@ main {
     display: flex;
 }
 
-.tweets > img {
+img {
     display: block;
     float: left;
     width: 60px;
     height: 60px;
-    background-color: rgb(238, 238, 238);
-    border-radius: 4px;
+    margin-right: -50%;
+    margin-top: 2em;
+    position: relative;
+    bottom: 3vh
 }
 
 .tweets .body {
-    margin-left: 60px;
     padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .tweets .title {
     font-weight: 700;
     color: rgb(51, 51, 51);
+    font-size: 20px;
+    margin-left: 70px;
+
+}
+
+.tweets .user {
+    font-weight: 400;
+    color: rgb(51, 51, 51);
 }
 
 .tweets .message {
     margin-top: 10px;
+    margin-left: 70px;
 }
 
 .tweets {
     margin-top: 10px;
     background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(192, 225, 237);
+    border: 1px solid lightskyblue;
     border-radius: 10px;
     overflow: hidden;
 }
