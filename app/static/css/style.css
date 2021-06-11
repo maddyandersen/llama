@@ -110,6 +110,36 @@ main {
     display: flex;
 }
 
+.tweets > img {
+    display: block;
+    float: left;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(238, 238, 238);
+    border-radius: 4px;
+}
+
+.tweets .body {
+    margin-left: 60px;
+    padding-left: 10px;
+}
+
+.tweets .title {
+    font-weight: 700;
+    color: rgb(51, 51, 51);
+}
+
+.tweets .message {
+    margin-top: 10px;
+}
+
+.tweets {
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(192, 225, 237);
+    border-radius: 10px;
+    overflow: hidden;
+}
 
 
 @media only screen and (max-width: 750px) {
