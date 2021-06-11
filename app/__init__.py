@@ -55,7 +55,7 @@ logout function
 def logout():
     try:
         session.pop('username')
-        #session.pop('user_id')
+        session.pop('user_id')
         return redirect("/")
     except:
         return render_template("error.html")
@@ -81,8 +81,8 @@ def home():
         db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
         c = db.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
-        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
-        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
+        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
+        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
 
         # make a list of all the tweet_ids, user_ids, and tweet content
         c.execute("SELECT * FROM tweets")
@@ -109,8 +109,8 @@ def myTweets():
         c = db.cursor()
         c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
 
-        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
-        # c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
+        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like dogs"))
+        c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (3, "I like cats"))
 
         # make a list of all the tweet content for this user
         c.execute("SELECT content FROM tweets WHERE user_id=?", (session.get("user_id"),))
@@ -248,12 +248,9 @@ def tweetForm(text, change_len):
 @app.route("/tweetRequest", methods=["POST"])
 def changeTweet():
     text = request.form["text"]
-    print(text)
     parse_text = []
     elements = text[2:-3].split("), (")
-    print(elements)
     for element in elements:
-        print(element)
         tmp = element.split(", ")
         new_tmp = []
         for el in tmp:
@@ -267,8 +264,6 @@ def changeTweet():
                 new_tmp.append(el[1::])
             else:
                 new_tmp.append(el[1:-1])
-            print(el)
-        print(new_tmp)
         if new_tmp[0] == ".',":
             tuple = (".", "PDT")
         else:
@@ -277,28 +272,29 @@ def changeTweet():
             except:
                 tuple = (new_tmp[0][0:-3], "")
         parse_text.append(tuple)
-    print(parse_text)
     text = parse_text
     index = int(request.form["index"])
     word = request.form["word"]
     count = int(request.form["count"])
-    print(index)
-    print(count)
     if count > 0:
-        print(text)
         text[index] = (word, text[index][1])
-        print(text)
         count -= 1
         return tweetForm(text, count)
     db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
     c = db.cursor()
-    c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
+    # c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
     output_text = []
     for tuple in text:
         output_text.append(tuple[0])
     finalTweet = " ".join(output_text)
-    c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (session.get("user_id"), finalTweet,))
-    return myTweets()
+    print(finalTweet)
+    print(session.get("user_id"))
+    c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (session.get("user_id"), finalTweet))
+    db.commit()
+    c.execute("SELECT * FROM tweets")
+    accounts = list(c)
+    print(accounts)
+    return redirect(url_for('myTweets'))
 
 
 def parse_text(text):
