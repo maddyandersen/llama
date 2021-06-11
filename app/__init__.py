@@ -140,7 +140,7 @@ login function
 '''
 @app.route("/loginRequest", methods=["POST"])
 def loginRequest():
-    try:
+    #try:
         # based on form, have form.request['elem'] tags here
         username = request.form["username"]
         password = request.form["password"]
@@ -161,8 +161,8 @@ def loginRequest():
             session['username'] = username
             session['user_id'] = accounts[0][1]
         return redirect("/")
-    except:
-        return random_error()
+    #except:
+        #return random_error()
 
 
 '''
@@ -230,6 +230,7 @@ def createTweet():
     }
 
     resp = requests.get('https://api.twitter.com/1.1/search/tweets.json', params=request_params, headers=all_headers).json()
+    link = "https://twitter.com/_/status/" + str(resp["statuses"][0]["id"])
 
     try:
         text = resp["statuses"][0]["retweeted_status"]['full_text']
@@ -238,20 +239,15 @@ def createTweet():
         text = resp["statuses"][0]['full_text']
     text = text.lower()
     parsed_text = parse_text(text)
-    return tweetForm(parsed_text, int(0.30 * len(parsed_text)))
-
-<<<<<<< HEAD
+    return tweetForm(parsed_text, int(0.30 * len(parsed_text)), link)
 
 def tweetForm(text, change_len, link):
-=======
-def tweetForm(text, change_len):
->>>>>>> 43a0dbfc04075f806d9b60ec0c30474f0911fe20
     chosen = random.choice(text)
     while chosen[1] != 'CD' and chosen[1] != 'JJ' and chosen[1] != 'N' and chosen[1] != 'JJR' and chosen[1] != 'JJS' and chosen[1] != 'MD' and chosen[1] != 'NN' and chosen[1] != 'NNP' and chosen[1] != 'NNS' and chosen[1] != 'PRP' and chosen[1] != 'PRP$' and chosen[1] != 'RB' and chosen[1] != 'RBR' and chosen[1] != 'UH' and chosen[1] != 'VB' and chosen[1] != 'VBD' and chosen[1] != 'VBG' and chosen[1] != 'VBN' and chosen[1] != 'VBP' and chosen[1] != 'VBZ':
         chosen = random.choice(text)
     location = text.index(chosen)
     typeChange = chosen[1]
-    return render_template("create_tweet.html", text=text, index=location, type=typeChange, count=change_len)
+    return render_template("create_tweet.html", text=text, index=location, type=typeChange, count=change_len, link=link)
 
 
 @app.route("/tweetRequest", methods=["POST"])
@@ -263,6 +259,8 @@ def changeTweet():
         tmp = element.split(", ")
         new_tmp = []
         for el in tmp:
+            if el.index('\\') >= 0:
+              el.replace('\\', '')
             if el == "'":
                 new_tmp.append("'", 'POS')
             elif el[0] != "'" and el[-1] != "'":
@@ -285,6 +283,7 @@ def changeTweet():
     index = int(request.form["index"])
     word = request.form["word"]
     count = int(request.form["count"])
+    link = request.form["link"]
     if count > 0:
         text[index] = (word, text[index][1])
         count -= 1

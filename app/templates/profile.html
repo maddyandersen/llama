@@ -34,7 +34,9 @@
     </nav>
 
     <main>
+
           {% for tweet in tweets %}
+
           <div class="tweets">
             <div class="body">
               <img src="../static/logo.png">
@@ -42,7 +44,6 @@
               <span class="user"> @{{ username }}</span>
               <div class="message">{{ tweet[0] }}</div>
               <div class="link">{{ tweet[1] }}</div>
-              <br>
             </div>
             </div>
             <br>
