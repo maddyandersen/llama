@@ -290,17 +290,22 @@ def changeTweet():
         print(text)
         count -= 1
         return tweetForm(text, count)
+    db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
+    c = db.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")
     output_text = []
     for tuple in text:
         output_text.append(tuple[0])
     finalTweet = " ".join(output_text)
-    # final tweet
-    # return " ".join(output_text)
+    c.execute("INSERT INTO tweets(tweet_id, user_id, content) VALUES (NULL, ?, ?)", (session.get("user_id"), finalTweet,))
+    return myTweets()
+
 
 def parse_text(text):
    tokenized = nltk.word_tokenize(text)
    parsed = nltk.pos_tag(tokenized)
    return parsed
+
 
 if __name__ == '__main__':
     app.debug = True
