@@ -259,7 +259,7 @@ def changeTweet():
         tmp = element.split(", ")
         new_tmp = []
         for el in tmp:
-            if el.index('\\') >= 0:
+            if '\\' in el:
               el.replace('\\', '')
             if el == "'":
                 new_tmp.append("'", 'POS')
@@ -287,7 +287,7 @@ def changeTweet():
     if count > 0:
         text[index] = (word, text[index][1])
         count -= 1
-        return tweetForm(text, count)
+        return tweetForm(text, count, link)
     db = sqlite3.connect(dir + DB_FILE) # connects to sqlite table
     c = db.cursor()
     # c.execute("CREATE TABLE IF NOT EXISTS tweets(tweet_id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER NOT NULL, content TEXT NOT NULL);")

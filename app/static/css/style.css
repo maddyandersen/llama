@@ -154,6 +154,11 @@ img {
     overflow: hidden;
 }
 
+.link {
+   color: skyblue;
+   margin-left: 70px;
+}
+
 
 @media only screen and (max-width: 750px) {
     .navbar {
