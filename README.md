@@ -7,7 +7,7 @@
 * Liam Kronman (lkronman10)
 
 ### Project Description:
-* Uses the Twitter API to fetch real tweets, either from a specified user or from a random user. 
+* Uses the Twitter API to fetch real tweets. 
 * The user enters nouns, adjectives, verbs, etc. and the actual tweet data is edited with the funny replacements. 
 * Modified tweets are displayed in a Twitter-style feed.
 * Users can also view tweets made by other users.
