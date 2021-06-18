@@ -27,6 +27,18 @@ maddyA, ameliaC, ariS, liamK -- 2021-05-26 09:54
 - Ari began exploring react.js, which we are using for our front-end
 - Maddy & Amelia set up the database and began working on login/logout/error/register
 
+ariS -- 2021-06-01 00:42
+- pushed layout.html with navbar
+
+ariS -- 2021-06-02 10:22 
+- pushed first.html (the landing page)
+
+ariS -- 2021-06-02 15:13
+- pushed login and signup forms
+
+ariS -- 2021-06-04 10:14
+- pushed login/signup functionality
+
 maddyA, ameliaC -- 2021-06-06 15:43
 - tested Ari's login and signup functions
 - found that we were able to login with an incorrect password, as long as the username existed --> no error messages 
@@ -43,9 +55,22 @@ maddyA, ariS, liamK -- 2021-06-06 23:57
 - tried to address the user_id issue, but we were unable to make much progress
 - currently, the user_id autoincrements, but we are unable to save it to the session 
 
+maddyA -- 2021-06-07 10:05
+- created Twitter account for team llama
+- applied for Twitter Developer Account to access API
+- UPDATE: account was approved at 16:00 
+
 ameliaC -- 2021-06-07 10:05
 - added code to home function to send tweets and info to feed
 - but commented it out since I didn't get to test it yet
+
+liamK -- 2021-06-10 18:03
+- wrote Python code that allows the user to input a text to be edited
+- algorithm determines number of nouns, verbs, adj, etc 
+- asks user to input nouns, verbs, adj, etc through the terminal
+- replaces original words with inputted ones
+- displays modified text
+- early version of the Twitter madlib algorithm
 
 ameliaC -- 2021-06-10 19:00
 - added new function and route for the myTweets/profile page
@@ -55,3 +80,33 @@ ameliaC -- 2021-06-10 19:00
 - updated the path in layout.html so the buttons would go to the right pages
 - created profile.html which would display user's tweets
 - added Jinja syntax for a for loop that displays the tweets on the feed and profile
+
+maddyA -- 2021-06-10 19:30
+- testing and researching to figure out how to use the Twitter API
+- attempted to use RapidAPI, but found that it didn't fit our needs
+- explored Michael Butler's code to get a random tweet using the API (https://github.com/michaelbutler/random-tweet)
+
+maddyA, ameliaC, liamK -- 2021-06-11 4:00
+- added api key files to .gitignore
+- wrote code to get a random tweet from API based on a random word
+- implemented NLTK for word finding and replacement by modifying Liam's earlier terminal-based program
+- how the algorithm works: 
+    - using Twitter API, get a random tweet from the last 7 days based on a random word
+    - random word is from a list of common words
+    - algorithm determines numbers of nouns, verbs, adj, etc in tweet
+    - prompts user for a replacement word for each type
+    - replaces the original words with the user's inputs
+    - returns modified tweet
+- experimented with Merriam Webster Intermediate Dictionary API to get a random word to use to get a tweet using the Twitter API --> decided to use a list of common words instead
+- created the form to take in the user's new words based on the number of nouns, verbs, adj, etc in the tweet
+- added styling to tweet form
+- added code to add modified tweet into the tweet table in the database
+- edited original tweet table (tweet_id, user_id, content) to include another column for the link to the original tweet (tweet_id, user_id, content, link)
+- added styling to the myTweet feed and main feed (with all tweets) to make them look like actual tweets --> included Twitter bird logo to each tweet
+- added link to original tweet in the modified tweets, so users can see the changes
+- a lot of debugging :(
+
+maddyA, ameliaC -- 2021-06-17 22:54
+- updated devlog to include 6/10-6/11 changes
+- added team flag
+- made final changes to repo
