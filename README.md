@@ -1,4 +1,4 @@
-# Twitter Madlibs by llama
+# Twitter MadLibs by llama
 
 ### Roster:
 * Project Manager: Maddy Andersen (mandersen10)
